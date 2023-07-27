@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { AboutModule } from './about/about.module';
 import { ChatModule } from './chat/chat.module';
 import { HomeModule } from './home/home.module';
+import { Router } from '@angular/router';
+
 
 @NgModule({
   declarations: [

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-
+  /**
+   *
+   */
+  constructor(private router :Router) {
+   
+    
+  }
+  route(){
+    this.router.navigate(['/delivery/ProfileData']);
+  }
+  
 }

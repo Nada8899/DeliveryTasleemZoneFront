@@ -1,5 +1,4 @@
-<!-- <app-before-register #child style="display:none;" ></app-before-register> -->
-<section >
+<section dir="rtl" >
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col col-lg-5">
@@ -12,33 +11,33 @@
                 <div *ngIf='errors' class="alert alert-danger m-2">
                   {{errors}}
                 </div>
-                <div class="alert mt-2 alert-danger" *ngIf="RegisterInvalid">
+                <div class="alert mt-2 alert-danger" *ngIf="userNameInvalid">
                   <p>
                     <i class="fa-solid fa-circle-exclamation"></i> 
                     اسم المستخدم هذا محجوز!
                   </p> 
                 </div>
-                <form>
-                  <!--  [formGroup]="registerform" (ngSubmit)='submitRegister(registerform)' -->
-                  <div class="d-flex align-items-center mb-3 pb-1">
-                    <span class="h1 fw-bold mb-0">انشى حساب </span>
+                <form [formGroup]="RegistrationForm" (ngSubmit)="onSubmit(RegistrationForm)">
+                  <div class="  mb-5 pb-1 text-center"  >
+                    <span class="h1 fw-bold " >   انشى حساب  كعميل</span>
                   </div>
                   <div class="form-outline mb-4">
                     <input
+                    dir="rtl"
                       type="username"
-                      formControlName="username"
+                      formControlName="userName"
                       id="form2Example17"
-                      class="form-control form-control-lg"
-                      placeholder="Username "
+                      class="form-control  text-center"
+                      placeholder="اسم المستخدم "
                     />
-                    <!-- //error alert -->
-                    <!-- <div  class="alert mt-2 alert-danger" *ngIf="registerform.get('username')?.errors != null 
-                    && registerform.get('username')?.touched" >
-                      <p *ngIf="registerform.get('username')?.errors?.['required'] "><i class="fa-solid fa-circle-exclamation"></i> الاسم مطلوب</p>
-                      <p *ngIf="registerform.get('username')?.errors?.['pattern'] "><i class="fa-solid fa-circle-exclamation"></i> اسم المستخدم يجب أن يحتوي على حرف واحد كبير وصغير</p>
-                      <p *ngIf="registerform.get('username')?.errors?.['forbiddenvalue'] "><i class="fa-solid fa-circle-exclamation"></i> username not allowed word [Admin or Adminstrator]</p>
-
-                    </div> -->
+                    <div *ngIf="UserName?.errors != null && UserName?.touched" class="error-messages" class="text-center">
+                      <p *ngIf="UserName?.errors?.['required']" class="text-danger">
+                        ادخل اسم المستخدم
+                      </p>
+                      <p class="text-danger" *ngIf="UserName?.errors?.['minlength']">
+                        أدخل اسم المستخدم بحد أقل 5 أحرف.
+                      </p>
+                    </div>
                   </div>
 
                   <!-- ************************************************************************* -->
@@ -47,59 +46,113 @@
                       type="email"
                       formControlName="email"
                       id="form2Example17"
-                      class="form-control form-control-lg"
-                      placeholder="Email address"
+                      class="form-control text-center"
+                      placeholder="البريد الألكتروني"
                     />
-                    <!-- //error alert -->
-                    <!-- <div style="height: 50px;" class="alert mt-2 alert-danger" *ngIf="registerform.get('email')?.errors != null 
-                    && registerform.get('email')?.touched" >
-                      <p *ngIf="registerform.get('email')?.errors?.['required'] "><i class="fa-solid fa-circle-exclamation"></i> الايميل مطلوب</p>
-                      <p *ngIf="registerform.get('email')?.errors?.['pattern'] "><i class="fa-solid fa-circle-exclamation"></i> يجب أن يحتوي البريد الإلكتروني على @ </p>
-                    </div> -->
+                    <div *ngIf="email?.errors != null && email?.touched " class="text-center">
+                      <p *ngIf="email?.errors?.['required']" class="text-danger">
+                        برجاء ادخال الايميل
+                      </p>
+                      <p *ngIf="email?.errors?.['email']" class="text-danger">
+                        abc@gmail.com يجب ان يكون على هذا الشكل
+                      </p>
+                    </div>
                   </div>
-<!-- ************************************************************************* -->
+              <!-- ************************************************************************* -->
                   <div class="form-outline mb-4">
                     <input
                       type="password"
                       formControlName="password"
                       id="form2Example27"
-                      class="form-control form-control-lg"
-                      placeholder="Password"
+                      class="form-control text-center"
+                      placeholder="كلمه السر "
                     />
-                    <!-- <div style="height: 50px;" class="alert mt-2 alert-danger" *ngIf="registerform.get('password')?.errors != null 
-                    && registerform.get('password')?.touched" >
-                      <p *ngIf="registerform.get('password')?.errors?.['required'] "><i class="fa-solid fa-circle-exclamation"></i>كلمة المرور مطلوبة</p>
-                      <p *ngIf="registerform.get('password')?.errors?.['minlength']"><i class="fa-solid fa-circle-exclamation"></i> يجب أن تكون كلمة المرور 8 أحرف على الأقل.</p>
-
-                    </div> -->
+                    <div *ngIf="password?.touched && password?.invalid" class="text-center">
+                      <p *ngIf="password?.errors?.['required']" class="text-danger">
+                        برجاء ادخال كلمه السر
+                      </p>
+                      <p *ngIf="password?.errors?.['strong'] && password?.errors?.['minlength'] && password?.dirty"
+                        class="text-danger">
+                        كلمة المرور غير قوية،يجب ان يحتوي علي ان يكون 8 من حروف و ارقام
+  
+                      </p>
+                      <p class="text-danger" *ngIf="password?.errors?.['maxlength']">
+                        برجاء أدخل كلمه المرور بحد اقصي 10 أحرف
+                      </p>
+                      <p class="text-danger" *ngIf="password?.errors?.['minlength']">
+                        برجاء أدخل كلمه المرور بحد أدني 8 أحرف
+                      </p>
+                    </div>
                   </div>
 
                   <div class="form-outline mb-4">
                     <input
                       type="password"
-                      formControlName="confirmpassword"
+                      formControlName="confirmPassword"
                       id="form3Example4cdg"
-                      class="form-control form-control-lg"
-                      placeholder="Repeat Password"
+                      class="form-control text-center"
+                      placeholder="تأكيد كلمه السر"
                     />
-                    <!-- <div  class="alert mt-2 alert-danger" *ngIf="registerform.get('confirmpassword')?.errors != null 
-                    && registerform.get('confirmpassword')?.touched" >
-                      <p *ngIf="registerform.get('confirmpassword')?.errors?.['required'] "><i class="fa-solid fa-circle-exclamation"></i> كلمة المرور مطلوبة </p>
-                      <p *ngIf="registerform.get('confirmpassword')?.errors?.['maxlength'] "><i class="fa-solid fa-circle-exclamation"></i> يجب أن يكون طول كلمة المرور 8 بحد أقصى</p>
-                      <p *ngIf="registerform.get('confirmpassword')?.errors?.['minlength']"><i class="fa-solid fa-circle-exclamation"></i> يجب أن تكون كلمة المرور الحد الأدنى للطول 2</p>
-                      <p *ngIf="registerform.get('confirmpassword')?.errors?.['mismatch'] "><i class="fa-solid fa-circle-exclamation"></i> كلمة المرور غير متطابقة تأكيد كلمة المرور</p>
-
-                    </div> -->
+                    <div class="text-danger" *ngIf="RegistrationForm.errors?.['misMatch']" class="text-center" style="color: red;">
+                      تأكيد كلمة السر غير متوافقة مع كلمة السر </div>
+  
+                    <div *ngIf="confirmPassword?.errors !=null && confirmPassword?.touched" class="mt-2">
+  
+                      <p *ngIf="confirmPassword?.errors?.['required']" class="text-danger text-center">برجاء إدخال تأكيد كلمة السر</p>
+                    </div>
                   </div>
-                  <div class=" mb-4">
-                    <button  class="btn btn-lg btn-block" data-mdb-toggle="modal" data-mdb-target="#exampleModal" type="submit" style="color: white;background-color:#404c6a;">
+
+
+                  <div class="form-outline mb-4">
+
+
+                    <h5 class="text-danger bg-light rounded p-1 w-75 m-auto mb-2">بالرجاء ادخال سؤال واجابة للمساعدة عند نسيان
+                      الرقم السري يفضل ان تكون الأجابة كلمة واحدة </h5>
+                    <div class="row">
+                      <div class="form-outline mb-5">
+                        <div class="input-group">
+                          <input type="text" id="qui" name="qui" formControlName="Question" style="direction: rtl;
+                            " class="form-control text-center" placeholder=" ادخل السؤال" (input)="qui?.markAsTouched()" />
+                    
+                        </div>
+                        <div *ngIf="qui?.touched && qui?.invalid" class="text-center">
+                          <p *ngIf="qui?.errors?.['required']" class="text-danger">
+                            برجاء ادخال السؤال التذكيرى
+                          </p>
+      
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-outline mb-5">
+                        <div class="input-group">
+                          <input type="text" id="answer" name="answer" formControlName="answer" style="direction: rtl;
+                            " class="form-control text-center" placeholder=" ادخل الاجابة"
+                            (input)="answer?.markAsTouched()" />
+                         
+                        </div>
+                        <div *ngIf="answer?.touched && answer?.invalid" class="text-center">
+                          <p *ngIf="answer?.errors?.['required']" class="text-danger">
+                            برجاء ادخال أجابة السؤال
+                          </p>
+      
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class=" mb-4 text-center">
+                    <button  class="btn btn-lg btn-block w-50 " data-mdb-toggle="modal"
+                                        [disabled]="RegistrationForm.invalid"
+                    data-mdb-target="#exampleModal" type="submit" style="color: white;background-color:#404c6a;">
                       اشترك الان
                     </button>
                   </div>
                   <!-- <a class="small text-muted" href="#!">Forgot password?</a> -->
                   <p class="mb-5 pb-lg-2" style="color: #5760c0">
                     لديك حساب بالفعل؟
-                    <a routerLink="['/Login']" style="color: #393f81"
+                    <a routerLink="/auth/Login" style="color: #393f81"
                       >سجل من هنا</a
                     >
                   </p>

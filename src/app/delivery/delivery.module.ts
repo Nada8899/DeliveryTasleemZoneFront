@@ -8,6 +8,8 @@ import { NotifyComponent } from './notify/notify.component';
 import { JobDetailsComponent } from './job-details/job-details.component';
 import { PorposalComponent } from './porposal/porposal.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DataProfileComponent } from './data-profile/data-profile.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -18,12 +20,14 @@ import { AppRoutingModule } from './app-routing.module';
     ProfileComponent,
     NotifyComponent,
     JobDetailsComponent,
-    PorposalComponent
+    PorposalComponent,
+    DataProfileComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    RouterModule
   ],
   exports:[
     FilterComponent,

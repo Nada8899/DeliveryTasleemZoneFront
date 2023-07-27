@@ -6,6 +6,9 @@ import { RegisterComponent } from './registerClient/register.component';
 import { RegisterDeliveryComponent } from './register-delivery/register-delivery.component';
 import { LoginComponent } from './login/login.component';
 
+import { ReactiveFormsModule } from '@angular/forms'; 
+import { RouterLink } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,7 +20,10 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    RouterLink,
+    HttpClientModule
   ]
 })
 export class AuthModule { }

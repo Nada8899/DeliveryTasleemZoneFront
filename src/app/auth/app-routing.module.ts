@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegistORComponent } from './regist-or/regist-or.component';
 import { RegisterComponent } from './registerClient/register.component';
@@ -9,8 +9,8 @@ import { RegisterDeliveryComponent } from './register-delivery/register-delivery
 const routes: Routes = [
  
   { path: 'Login',component:LoginComponent},
-  { path: 'RegisterOR',component:RegistORComponent },
   { path: 'RegisterClient',component:RegisterComponent},
+  { path: 'RegisterOR',component:RegistORComponent },
   { path: 'RegisterDelivery',component:RegisterDeliveryComponent}
  
 ];
@@ -19,7 +19,8 @@ const routes: Routes = [
   declarations: [],
   imports: [
     RouterModule.forChild(routes),
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
   ,
   exports: [RouterModule]
