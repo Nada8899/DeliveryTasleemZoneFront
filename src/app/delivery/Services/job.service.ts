@@ -16,4 +16,8 @@ export class JobService {
    GetJobByID(jobId:number): Observable<any> {
     return this._httpClient.get(`${this.url}/api/Jobs/GetJobById/${jobId}`);
   }
+  
+   AddJob(JobData:any): Observable<any> {
+    return this._httpClient.post(`${this.url}/api/Jobs/AddJob`,JobData);
+  }
 }

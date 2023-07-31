@@ -4,6 +4,7 @@ import { EducationLevelDTO } from '../Interfaces/export interface DeliveryProfil
 import { DeliveryProfileDTO } from '../Interfaces/DeliveryProfileDTO';
 import { LoginService } from 'src/app/auth/Services/login.service';
 import { DeliveryService } from '../Services/delivery.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-data-profile',
@@ -41,7 +42,7 @@ DeliveryProfileDTO:DeliveryProfileDTO={
 
 
   constructor(private formBuilder: FormBuilder , private _loginService : LoginService ,
-     private _deliveryService : DeliveryService) {
+     private _deliveryService : DeliveryService , private _router :Router) {
   }
   ngOnInit(): void {
   }
@@ -194,6 +195,9 @@ DeliveryProfileDTO:DeliveryProfileDTO={
               }
               this._deliveryService.AddDeliveryProfile(formData).subscribe((resp)=>{
                 console.log("manar",resp)
+                if(resp.message=="Success"){
+                  this._router.navigate(['/delivery/profile'])
+                }
 
               }, error => console.log(error) );
 
